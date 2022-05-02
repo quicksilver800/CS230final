@@ -26,7 +26,7 @@ def homepage(data):
         # greets user
         st.subheader('This project utilizes a sample of uber ride data and analyses relationships between variables such as distance, date, fare, and passenger counts')
         st.image('./uberpicture.jpg')
-        #adds picture
+        # adds picture
         st.header('Bar graph of the frequency of uber rides per year in our sample of data:')
 
         year_counts = data['Year'].value_counts()
@@ -45,7 +45,7 @@ def piepage(data):
     st.title('Distribution of Passenger counts')
     start_year = int(st.slider('Select a starting year:', 2009, 2015))
     end_year = int(st.slider('Select an ending year:', 2009, 2015))
-    st.header('Pie Chart of distribution of passenger counts for rides within selected date range:')
+    st.header('Pie Chart of distribution of passenger counts for rides within '+str(start_year) + ' to ' + str(end_year) + ':')
     # steamlit input sliders for date range
     data2 = data[data["Year"] >= start_year]
     data2 = data2[data2["Year"] <= end_year]
@@ -54,7 +54,7 @@ def piepage(data):
     fig, axs = plt.subplots()
     passenger_countlist = data2['passenger_count'].unique()
     pie = axs.pie(passenger_counts, labels=passenger_countlist, startangle=90, autopct='%1.1f%%', pctdistance=1.02, textprops={'fontsize': 4})
-    axs.set_title('Distribution of passenger counts')
+    axs.set_title('Distribution of passenger counts between '+str(start_year) + ' to ' + str(end_year))
     axs.legend()
     st.pyplot(fig)
     # creates pie chart with title, slice labels, slice percentages, a set starting angle, legend
@@ -98,8 +98,9 @@ def linepage(data):
     # creates scatter plot with title, axis labels, ticks, legend and color
 
 
-def toptable(data,number=5):
+def toptable(data, number=5):
     return data.head(n=number)
+
 
 def longridepage(data):
     st.title('Longest Rides in our sample of data')
@@ -136,7 +137,7 @@ def longridepage(data):
     #       layers = [layer] ))
 
     st.header('Table of 5 longest rides')
-    st.write(toptable(data,5))
+    st.write(toptable(data, 5))
     # creates table with data of the 5 longest rides
 
 
